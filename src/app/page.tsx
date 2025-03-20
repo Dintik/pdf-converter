@@ -1,10 +1,10 @@
 import { Container } from "@/components/Container";
-import { TextForm } from "@/components/TextForm";
+import { Converter } from "@/components/Converter";
 
 export default function Home() {
   return (
     <Container>
-      <TextForm />
+      <Converter />
     </Container>
   );
 }
