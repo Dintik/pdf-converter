@@ -8,11 +8,11 @@ import { db } from '@/db/db.model'
 
 const initialState: PDFFormState = {}
 
-interface TextFormProps {
+interface TextToPDFFormProps {
   onPdfCreated: (blob: Blob) => void
 }
 
-export const TextForm = ({ onPdfCreated }: TextFormProps) => {
+export const TextToPDFForm = ({ onPdfCreated }: TextToPDFFormProps) => {
   const [state, formAction, isPending] = useActionState(createPDF, initialState)
 
   useEffect(() => {

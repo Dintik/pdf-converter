@@ -18,6 +18,12 @@ interface ViewerProps {
 
 const maxWidth = 1000
 
+const PDFSkeleton = () => (
+  <div className='flex justify-center p-8'>
+    <div className='w-[1000px] h-[600px] bg-gray-100 rounded-lg animate-pulse' />
+  </div>
+)
+
 const Viewer: FC<ViewerProps> = ({ pdfBlob }) => {
   const [numPages, setNumPages] = useState<number | null>(null)
   const [pageNumber, setPageNumber] = useState(1)
@@ -46,8 +52,8 @@ const Viewer: FC<ViewerProps> = ({ pdfBlob }) => {
         <Document
           file={pdfBlob}
           onLoadSuccess={onDocumentLoadSuccess}
-          loading={<div>Loading PDF...</div>}
-          error={<div>Failed to load PDF!</div>}
+          loading={PDFSkeleton}
+          error={null}
         >
           {numPages && numPages > 1 && (
             <div className='flex items-center justify-center gap-2'>
@@ -75,6 +81,7 @@ const Viewer: FC<ViewerProps> = ({ pdfBlob }) => {
             width={
               containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
             }
+            loading={PDFSkeleton}
           />
         </Document>
       </div>

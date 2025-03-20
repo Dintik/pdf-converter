@@ -1,6 +1,6 @@
 'use client'
 
-import { TextForm } from './TextForm'
+import { TextToPDFForm } from './TextToPDFForm'
 import dynamic from 'next/dynamic'
 import { useState, useCallback } from 'react'
 import { Navigation } from './Navigation'
@@ -10,7 +10,13 @@ import { useLiveQuery } from 'dexie-react-hooks'
 
 const Viewer = dynamic(() => import('./Viewer'), {
   ssr: false,
-  loading: () => <div>Loading PDF viewer...</div>
+  loading: () => (
+    <div className='border-t border-gray-200 bg-white'>
+      <div className='flex justify-center p-8'>
+        <div className='w-[1000px] h-[600px] bg-gray-100 rounded-lg animate-pulse' />
+      </div>
+    </div>
+  )
 })
 
 export const Converter = () => {
@@ -44,7 +50,7 @@ export const Converter = () => {
           <Viewer pdfBlob={viewablePdfBlob} />
         ) : (
           <>
-            <TextForm onPdfCreated={setViewablePdfBlob} />
+            <TextToPDFForm onPdfCreated={setViewablePdfBlob} />
 
             {pdfsHistory && pdfsHistory.length > 0 && (
               <History
