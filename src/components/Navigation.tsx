@@ -16,7 +16,7 @@ export const Navigation = ({
   return (
     <nav className='w-full bg-white shadow-sm py-4 px-6 flex items-center justify-between min-h-[72px]'>
       <Link
-        href='https://github.com/Dintik/quiz'
+        href='https://github.com/Dintik/pdf-converter'
         className='flex items-center hover:opacity-80 transition-opacity'
         target='_blank'
         rel='noopener noreferrer'

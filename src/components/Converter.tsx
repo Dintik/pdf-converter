@@ -4,6 +4,9 @@ import { TextForm } from './TextForm'
 import dynamic from 'next/dynamic'
 import { useState, useCallback } from 'react'
 import { Navigation } from './Navigation'
+import { History } from './History'
+import { db } from '@/db/db.model'
+import { useLiveQuery } from 'dexie-react-hooks'
 
 const Viewer = dynamic(() => import('./Viewer'), {
   ssr: false,
@@ -11,12 +14,11 @@ const Viewer = dynamic(() => import('./Viewer'), {
 })
 
 export const Converter = () => {
-  const [pdfBlob, setPdfBlob] = useState<Blob | null>(null)
+  const [viewablePdfBlob, setViewablePdfBlob] = useState<Blob | null>(null)
+  const pdfsHistory = useLiveQuery(() => db.pdfs.toArray())
 
-  const handleDownload = useCallback(() => {
-    if (!pdfBlob) return
-
-    const url = URL.createObjectURL(pdfBlob)
+  const downloadPdf = useCallback((blob: Blob) => {
+    const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
     link.download = 'document.pdf'
@@ -24,20 +26,33 @@ export const Converter = () => {
     link.click()
     document.body.removeChild(link)
     URL.revokeObjectURL(url)
-  }, [pdfBlob])
+  }, [])
 
   return (
     <div className='flex flex-col'>
       <Navigation
-        onBackClick={pdfBlob ? () => setPdfBlob(null) : undefined}
-        onDownloadClick={pdfBlob ? handleDownload : undefined}
+        onBackClick={
+          viewablePdfBlob ? () => setViewablePdfBlob(null) : undefined
+        }
+        onDownloadClick={
+          viewablePdfBlob ? () => downloadPdf(viewablePdfBlob) : undefined
+        }
       />
 
       <div>
-        {pdfBlob ? (
-          <Viewer pdfBlob={pdfBlob} />
+        {viewablePdfBlob ? (
+          <Viewer pdfBlob={viewablePdfBlob} />
         ) : (
-          <TextForm onPdfCreated={setPdfBlob} />
+          <>
+            <TextForm onPdfCreated={setViewablePdfBlob} />
+
+            {pdfsHistory && pdfsHistory.length > 0 && (
+              <History
+                onSelectPdf={(blob) => setViewablePdfBlob(blob)}
+                onDownloadPdf={(pdf) => downloadPdf(pdf.blob)}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

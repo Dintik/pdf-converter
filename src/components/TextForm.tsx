@@ -4,6 +4,7 @@ import { useActionState } from 'react'
 import { createPDF } from '@/actions/pdf'
 import { useEffect } from 'react'
 import { PDFFormState } from '@/types/pdf'
+import { db } from '@/db/db.model'
 
 const initialState: PDFFormState = {}
 
@@ -16,7 +17,17 @@ export const TextForm = ({ onPdfCreated }: TextFormProps) => {
 
   useEffect(() => {
     if (state.pdfBlob) {
-      onPdfCreated(state.pdfBlob)
+      const pdfBlob = state.pdfBlob
+      // Save PDF to history and then show it
+      db.pdfs
+        .add({
+          name: 'document.pdf',
+          blob: pdfBlob,
+          date: new Date()
+        })
+        .then(() => {
+          onPdfCreated(pdfBlob)
+        })
     }
   }, [state.pdfBlob, onPdfCreated])
 

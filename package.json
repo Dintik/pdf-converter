@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@wojtekmaj/react-hooks": "^1.22.0",
+    "dexie": "^4.0.11",
+    "dexie-react-hooks": "^1.1.7",
     "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
