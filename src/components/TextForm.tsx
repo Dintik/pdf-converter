@@ -26,8 +26,8 @@ export const TextForm = ({ onPdfCreated }: TextFormProps) => {
   return (
     <div>
       <form action={formAction}>
-        <div className="w-full border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
-          <div className="p-4 bg-white">
+        <div className="w-full  bg-gray-50">
+          <div className="bg-white p-4 border-t border-gray-200">
             <label
               htmlFor="comment"
               className="block p-2 text-sm text-gray-700"
@@ -47,7 +47,7 @@ export const TextForm = ({ onPdfCreated }: TextFormProps) => {
             <button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 disabled:opacity-50"
+              className="px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
             >
               {isPending ? "Converting..." : "Convert to PDF"}
             </button>

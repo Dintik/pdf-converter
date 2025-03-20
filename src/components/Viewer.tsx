@@ -41,7 +41,7 @@ const Viewer: FC<ViewerProps> = ({ pdfBlob }) => {
     <div className="flex flex-col items-center">
       <div
         ref={setContainerRef}
-        className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm w-full"
+        className="border-t border-gray-200 bg-white shadow-sm w-full"
       >
         <Document
           file={pdfBlob}
@@ -49,25 +49,27 @@ const Viewer: FC<ViewerProps> = ({ pdfBlob }) => {
           loading={<div>Loading PDF...</div>}
           error={<div>Failed to load PDF!</div>}
         >
-          <div className="flex items-center justify-center gap-2">
-            <button
-              onClick={() => setPageNumber(pageNumber - 1)}
-              disabled={pageNumber <= 1}
-              className="px-2 py-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
-            >
-              &lt;
-            </button>
-            <span className="text-gray-600">
-              {pageNumber} / {numPages}
-            </span>
-            <button
-              onClick={() => setPageNumber(pageNumber + 1)}
-              disabled={pageNumber >= (numPages || 1)}
-              className="px-2 py-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
-            >
-              &gt;
-            </button>
-          </div>
+          {numPages && numPages > 1 && (
+            <div className="flex items-center justify-center gap-2">
+              <button
+                onClick={() => setPageNumber(pageNumber - 1)}
+                disabled={pageNumber <= 1}
+                className="px-2 py-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
+              >
+                &lt;
+              </button>
+              <span className="text-gray-600">
+                {pageNumber} / {numPages}
+              </span>
+              <button
+                onClick={() => setPageNumber(pageNumber + 1)}
+                disabled={pageNumber >= (numPages || 1)}
+                className="px-2 py-1 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:hover:text-gray-600"
+              >
+                &gt;
+              </button>
+            </div>
+          )}
           <Page
             pageNumber={pageNumber}
             width={
