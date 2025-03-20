@@ -1,4 +1,4 @@
 export interface PDFFormState {
-  error?: string;
-  pdfBlob?: Blob;
+  error?: string
+  pdfBlob?: Blob
 }

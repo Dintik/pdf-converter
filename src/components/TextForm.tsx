@@ -1,62 +1,59 @@
-"use client";
+'use client'
 
-import { useActionState } from "react";
-import { createPDF } from "@/actions/pdf";
-import { useEffect } from "react";
-import { PDFFormState } from "@/types/pdf";
+import { useActionState } from 'react'
+import { createPDF } from '@/actions/pdf'
+import { useEffect } from 'react'
+import { PDFFormState } from '@/types/pdf'
 
-const initialState: PDFFormState = {};
+const initialState: PDFFormState = {}
 
 interface TextFormProps {
-  onPdfCreated: (blob: Blob) => void;
+  onPdfCreated: (blob: Blob) => void
 }
 
 export const TextForm = ({ onPdfCreated }: TextFormProps) => {
-  const [state, formAction, isPending] = useActionState(
-    createPDF,
-    initialState
-  );
+  const [state, formAction, isPending] = useActionState(createPDF, initialState)
 
   useEffect(() => {
     if (state.pdfBlob) {
-      onPdfCreated(state.pdfBlob);
+      onPdfCreated(state.pdfBlob)
     }
-  }, [state.pdfBlob, onPdfCreated]);
+  }, [state.pdfBlob, onPdfCreated])
 
   return (
     <div>
       <form action={formAction}>
-        <div className="w-full  bg-gray-50">
-          <div className="bg-white p-4 border-t border-gray-200">
+        <div className='w-full  bg-gray-50'>
+          <div className='bg-white p-4 border-t border-gray-200'>
             <label
-              htmlFor="comment"
-              className="block p-2 text-sm text-gray-700"
+              htmlFor='comment'
+              className='block p-2 text-sm text-gray-700'
             >
               Enter text to convert to PDF
             </label>
             <textarea
-              id="comment"
-              name="text"
+              id='comment'
+              name='text'
               rows={16}
-              className="w-full p-2 text-sm text-gray-900 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
-              placeholder="Enter text..."
+              className='w-full p-2 text-sm text-gray-900 bg-white border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md'
+              placeholder='Enter text...'
               required
             ></textarea>
           </div>
-          <div className="flex items-center justify-center p-4 border-t border-gray-200">
+          <div className='flex items-center justify-center p-4 border-t border-gray-200'>
             <button
-              type="submit"
+              type='submit'
               disabled={isPending}
-              className="px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
+              className='px-4 py-2 text-sm font-semibold text-white bg-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 disabled:opacity-50 cursor-pointer'
             >
-              {isPending ? "Converting..." : "Convert to PDF"}
+              {isPending ? 'Converting...' : 'Convert to PDF'}
             </button>
           </div>
         </div>
       </form>
       {state.error && (
-        <p className="mt-2 text-sm text-red-600">{state.error}</p>
+        <p className='mt-2 text-sm text-red-600'>{state.error}</p>
       )}
     </div>
-  );
-};
+  )
+}
