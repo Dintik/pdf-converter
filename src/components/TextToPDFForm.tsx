@@ -33,7 +33,7 @@ export const TextToPDFForm = ({ onPdfCreated }: TextToPDFFormProps) => {
 
   return (
     <div>
-      <form action={formAction}>
+      <form action={formAction} data-testid='pdf-form'>
         <div className='w-full  bg-gray-50'>
           <div className='bg-white p-4 border-t border-gray-200'>
             <label
