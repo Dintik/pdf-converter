@@ -17,5 +17,10 @@ describe('Page', () => {
     })
     expect(textarea).toBeInTheDocument()
     expect(textarea).toHaveAttribute('required')
+
+    const convertButton = screen.getByRole('button', {
+      name: 'Convert to PDF'
+    })
+    expect(convertButton).toBeInTheDocument()
   })
 })
