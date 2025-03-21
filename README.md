@@ -56,7 +56,7 @@ pdf-converter/
 1. Clone the repository:
 
 ```bash
-git clone [repository-url]
+git clone https://github.com/Dintik/pdf-converter
 ```
 
 2. Install dependencies:
@@ -115,7 +115,3 @@ npm run test:watch  # Watch mode
 ## Deployment
 
 The application can be deployed on [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
-
-## License
-
-[MIT](LICENSE)
